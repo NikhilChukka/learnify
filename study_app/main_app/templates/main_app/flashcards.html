@@ -1,0 +1,53 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<div x-data="flashcards()" class="max-w-lg mx-auto">
+    <h1 class="text-3xl font-bold mb-4">Flashcards for: {{ topic.title }}</h1>
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <div x-show="!showAnswer" class="mb-4">
+            <h2 class="text-xl text-black font-semibold mb-2">Question:</h2>
+            <p x-text="currentCard.question" class="text-gray-600"></p>
+        </div>
+        <div x-show="showAnswer" class="mb-4">
+            <h2 class="text-xl font-semibold mb-2">Answer:</h2>
+            <p x-text="currentCard.answer" class="text-gray-600"></p>
+        </div>
+        <div class="flex justify-between">
+            <button @click="previousCard" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
+                Previous
+            </button>
+            <button @click="toggleAnswer" x-text="showAnswer ? 'Hide Answer' : 'Show Answer'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            </button>
+            <button @click="nextCard" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                Next
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function flashcards() {
+    return {
+        cards: {{ flashcards|safe }},
+        currentIndex: 0,
+        showAnswer: false,
+        get currentCard() {
+            return this.cards[this.currentIndex];
+        },
+        nextCard() {
+            this.currentIndex = (this.currentIndex + 1) % this.cards.length;
+            this.showAnswer = false;
+        },
+        previousCard() {
+            this.currentIndex = (this.currentIndex - 1 + this.cards.length) % this.cards.length;
+            this.showAnswer = false;
+        },
+        toggleAnswer() {
+            this.showAnswer = !this.showAnswer;
+        }
+    }
+}
+</script>
+{% endblock %}

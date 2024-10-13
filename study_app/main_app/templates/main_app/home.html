@@ -1,0 +1,83 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex flex-col justify-center items-center text-white p-2">
+    <div class="max-w-4xl w-full">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 text-center animate-fade-in-down">
+            Welcome to Learnify, we make learning easier and fun.
+        </h1>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white bg-opacity-20 p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 animate-fade-in">
+                <h2 class="text-2xl font-semibold mb-4">Smart Flashcards</h2>
+                <p>Create and study flashcards that adapt to your learning style.</p>
+            </div>
+            <div class="bg-white bg-opacity-20 p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 animate-fade-in">
+                <h2 class="text-2xl font-semibold mb-4">Interactive Quizzes</h2>
+                <p>Test your knowledge with our engaging quiz system.</p>
+            </div>
+            <div class="bg-white bg-opacity-20 p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 animate-fade-in">
+                <h2 class="text-2xl font-semibold mb-4">Progress Tracking</h2>
+                <p>Monitor your learning journey with detailed analytics.</p>
+            </div>
+        </div>
+        
+        <div class="bg-white bg-opacity-20 p-8 rounded-lg shadow-lg mb-12 animate-fade-in">
+            <h2 class="text-2xl font-semibold mb-4">Upload Your Study Material</h2>
+            <form method="post" enctype="multipart/form-data" class="space-y-4">
+                {% csrf_token %}
+                <div class="flex items-center justify-center w-full">
+                    <label for="pdf_file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-white border-dashed rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-10 transition duration-300">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <svg class="w-10 h-10 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <p class="mb-2 text-sm"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                            <p class="text-xs">PDF (MAX. 10MB)</p>
+                        </div>
+                        <input id="pdf_file" name="pdf_file" type="file" class="hidden" accept=".pdf" />
+                    </label>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold text-lg hover:bg-blue-100 transition duration-300">
+                        Upload and Process
+                    </button>
+                </div>
+            </form>
+            {% if error %}
+                <p class="text-red-300 mt-4 text-center">{{ error }}</p>
+            {% endif %}
+        </div>
+        
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .animate-fade-in-down { animation: fadeInDown 1s ease-out; }
+    .animate-fade-in-up { animation: fadeInUp 1s ease-out; }
+    .animate-fade-in { animation: fadeIn 1s ease-out; }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.getElementById('pdf_file').addEventListener('change', function(e) {
+        var fileName = e.target.files[0].name;
+        var fileLabel = document.querySelector('label[for="pdf_file"] p.text-sm');
+        fileLabel.textContent = 'Selected file: ' + fileName;
+    });
+</script>
+{% endblock %}

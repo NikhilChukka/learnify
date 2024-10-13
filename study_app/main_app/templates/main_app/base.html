@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head style="transition-behavior: smooth;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnify - makes learning easier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #3b82f6, #8b5cf6);
+            min-height: 100vh;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="text-white">
+    <nav class="bg-white bg-opacity-20 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'home' %}" class="text-white text-2xl font-bold">Learnify </a>
+            <div class="space-x-4">
+                <a href="{% url 'home' %}" class="hover:text-blue-200 transition duration-300">Home</a>
+                <a href="{% url 'quiz' %}" class="hover:text-blue-200 transition duration-300">Take a Quiz</a>
+                <!-- Add more navigation items as needed -->
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-8 px-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-white bg-opacity-20 text-white py-6 mt-12">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Learnify. All rights reserved.</p>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
