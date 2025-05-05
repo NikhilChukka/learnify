@@ -20,8 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-xkc^ty5nq^eactfp=+ij@tk3s7wr2*=1(1ohb#mw*zinbzu=)l'
-
+SECRET_KEY = ''
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -128,4 +127,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # OpenAI API Key
-OPENAI_API_KEY = 'sk-Vbvd39xIupP3ozPQclYIyIR5aUgAVeD-9Gw4sLL2pPT3BlbkFJmI-qHfa5E51iZJ6DoU8OFHGbdrLKW--EO7hLEZqTEA'  # Replace with your actual API key
+OPENAI_API_KEY = ''  # Replace with your actual API key
